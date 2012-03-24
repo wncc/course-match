@@ -52,7 +52,6 @@ if not c.row_count:
                         mail['bcc'] = email_message['Bcc']
                         mail['message'] = get_first_text_block(email_message)
                         mail['uid'] = index
-                        mail['course'] = ''
                         mail['user_id'] = user_id
                         mail['read'] = True
 
@@ -64,7 +63,7 @@ if not c.row_count:
                         #Inserting into mails
                         mail_insert_query = 'INSERT INTO mails VALUES(%s)' % ','.join(['?'] * len(mail))
                         c.execute(mail_insert_query, mail)
-                        con.commit()
+                        db_con.commit()
 
 else:
         last_mail_id_query = 'SELECT * FROM `mails` ORDER BY id DESC LIMIT 1'

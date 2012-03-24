@@ -37,4 +37,12 @@ DataMapper::setup(:default, "sqlite3://"+File.dirname(__FILE__) +"/db/course-mat
 		belongs_to :user
 	end
 
+	class Sort
+		include DataMapper::Resource
+
+		property :id, Serial
+		property :mail_id, Integer
+		property :course_id, Integer
+	end
+
 DataMapper.finalize.auto_upgrade!
