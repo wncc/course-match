@@ -1,0 +1,235 @@
+*{
+	font-family: 'Open Sans', 'Droid Sans', 'Calibri', 'Ubuntu Light', Helvetica, Arial, sans-serif !important;
+}
+
+body{
+	overflow: hidden;
+	border-bottom: 1px solid black;
+}
+
+.footer{
+	position: absolute;
+	bottom: 3px;
+	width: 25%;
+	text-align: right;
+	color: white;
+	font-size: 13px;
+	font-style: italic;
+}
+
+.sidebar{
+	width: 25%;
+	background: black;
+	background: -webkit-linear-gradient(left, #222222, #000000);
+	background: -moz-linear-gradient(left, #222222, #000000);
+	background: -o-linear-gradient(left, #222222, #000000);
+	background: -ms-linear-gradient(left, #222222, #000000);
+	background: linear-gradient(left, #222222, #000000);
+	color:white;
+	min-height: 800px;
+	display: inline-block;
+	vertical-align: top;
+	clear: both;
+	overflow: hidden;
+}
+
+.main{
+	width:74.5%;
+	display: inline-block;
+	vertical-align: top;
+	overflow-y: auto;
+	min-height: 600px;
+	position: relative;
+}
+
+.title{
+	position: absolute;
+	top: 42%;
+	font-family: "League Gothic Regular", "League Gothic", Helvetica, Arial, sans-serif !important;
+	width: 100%;
+	text-align: center;
+	font-size: 1000%;
+	text-shadow: 3px 3px 0 #aaa;
+	cursor: pointer;
+}
+
+.login{
+	position: absolute;
+	top: 25%;
+	height: 30%;
+	width: 100%;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+@media only screen and (max-width: 1000px) {
+	.title{
+		font-size: 600% !important;
+		top: 35%;
+	}
+}
+
+
+form label{
+	display: block;
+	font-size: 14px;
+}
+
+input[type=text],input[type=password]{
+	margin-top: 4px;
+	border: #aaa;
+	padding: 4px 8px;
+	border-radius: 2px;
+	display: block;
+}
+
+.blue-button{
+	background-color: #0074cc;
+	background-image: -moz-linear-gradient(top, #0088cc, #0055cc);
+	background-image: -ms-linear-gradient(top, #0088cc, #0055cc);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0055cc));
+	background-image: -webkit-linear-gradient(top, #0088cc, #0055cc);
+	background-image: -o-linear-gradient(top, #0088cc, #0055cc);
+	background-image: linear-gradient(top, #0088cc, #0055cc);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	color: white;
+	border-radius: 5px 5px 5px 5px;
+	font-size: 15px;
+	line-height: normal;
+	padding: 9px 14px;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.blue-button:hover{
+	background: #0055cc;
+}
+
+.blue-button:active{
+	background: #004099 \9;
+}
+
+.uname{
+	position: absolute;
+	top: 1%;
+	width: 24%;
+	text-align: right;
+	font-size: 13px;
+}
+
+.nav{
+	position: absolute;
+	top: 8%;
+	height: 30%;
+	width: 25%;
+	text-align: right;
+}
+
+.nav ul li{
+	display: block;
+	color: white;
+	padding: 10px 20px 10px;
+	box-shadow: 0px 1px 0 #222;
+	-moz-transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+}
+
+.nav ul li.active{
+	border-right: 8px solid red;
+	padding-right: 12px;
+}
+
+.nav ul li:hover{
+	background: black;
+	background: -webkit-linear-gradient(left, #222222, #111111);
+	background: -moz-linear-gradient(left, #222222, #111111);
+	background: -o-linear-gradient(left, #222222, #111111);
+	background: -ms-linear-gradient(left, #222222, #111111);
+	background: linear-gradient(left, #222222, #111111);
+	padding-right: 30px;
+
+	-moz-transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+}
+
+.nav ul li.active:hover{
+	padding-right: 22px;
+}
+
+.nav ul li a{
+	color: white;
+	text-decoration: none;
+}
+
+.nav ul li.active{
+	border-right: 8px solid red;
+	padding-right: 12px;
+}
+
+.mails{
+	/*border: 1px solid black;*/
+	position: absolute;
+	top: 3%;
+	left: 1%;
+	width: 96%;
+	min-height: 92%;
+	padding: 10px;
+}
+
+.table{
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.tr{
+	display: table-row;
+}
+
+.mails .table .tr{
+	border-top: 1px dotted grey;
+	border-bottom: 1px dotted grey;
+}
+
+.mails .table .tr:nth-child(odd){
+	background-color: #EAEAEA;
+}
+.mails .table .tr:nth-child(even){
+	background-color: #FAFAFA;
+}
+
+.mails .table .tr.unread{
+	font-weight: bold;
+}
+
+.mails .table .tr:hover{
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #666;
+	cursor: pointer;
+}
+
+.td{
+	display: table-cell;
+}
+
+.mails .table .tr .td:first-child{
+	width: 30%;
+	padding-left: 8px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.mails .table .tr .td:nth-child(2){
+	width: 50%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.mails .table .tr .td:last-child{
+	width: 20%;
+	padding-right: 8px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

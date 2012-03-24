@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Course Match</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="sidebar">
+		<div class="login">
+			<form action="/login" method="post">
+				<strong style="color:yellow">Not able to connect to <br>the provided host</strong>
+				<label for="host">IMAP Host</label>
+				<input type="text" name="host" id="host"><br>
+
+				<label for="port">Port</label>
+				<input type="text" name="port" id="port"><br>
+				<span style="font-style: italic; font-size: 10px;">Leave above blank if you are using IITB Webmail (GPO)</span>
+				<br><br>
+				<label for="username">LDAP ID</label>
+				<input type="text" name="username" id="username" required><br>
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password" required><br>
+				<span style="font-style: italic; font-size: 10px;">Password wont be stored.</span><br><br>
+				<input type="submit" class="blue-button" value="Login">
+			</form>
+		</div>
+		<div class="footer">
+			&copy; Copyright 2012 - Amol Mandhane &nbsp;&nbsp;&nbsp;
+		</div>
+	</div>
+	<div class="main">
+		<div class="title">
+			COURSE MATCH
+		</div>
+	</div>
+</body>
+</html>
