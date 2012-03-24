@@ -48,7 +48,7 @@ post "/login/?" do
 		erb :not_login
 	else
 
-		user = User.get params[:username]
+		user = User.first(:username => params[:username])
 		if user==nil
 			user = User.new
 			user.username = params[:username]
@@ -68,12 +68,13 @@ get '/home/?' do
 end
 
 get "/sync/?" do
-	system("python "+File.dirname(__FILE__)+"/imap.py")
-
 	command = Thread.new do
 		system("python "+File.dirname(__FILE__)+"/imap.py")# long-long programm
+		system("python "+File.dirname(__FILE__)+"/sort.py")# long-long programm
 	end
-	command.join    
+	command.join
+
+	'DONE'
 end
 
 

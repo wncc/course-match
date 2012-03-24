@@ -1,6 +1,14 @@
 import imaplib
 import email
-import sqlite3
+import os
+from sqlalchemy import create_engine
+from sqlalchemy import MetaData, Column, Table
+from sqlalchemy import Integer, String
+from sqlalchemy.sql import select
+
+
+def rel(*x):
+        return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
 #############################
 #############################
@@ -15,7 +23,7 @@ def get_first_text_block(email_message_instance):
         elif maintype == 'text':
                 return email_message_instance.get_payload()
 
-f = open("tmp/holder", "r")
+f = open(rel("tmp/holder"), "r")
 raw = f.read()
 f.close()
 
@@ -25,16 +33,21 @@ mailbox = imaplib.IMAP4(con[0], con[1])
 
 mailbox.login(con[2], con[3])
 
-db_con = sqlite3.connect("db/course-match.db")
+mailbox.select()
+
+engine = create_engine("sqlite:///db/course-match.db", echo=False)
+# Session = sqlalchemy.orm.sessionmaker(bind=engine)
+metadata = MetaData(bind=engine)
+
+
+mails_table = Table('mails', metadata, autoload=True)
+
+s = select([mails_table])
+result = s.execute()
 
 user_id = con[4]
 
-c = db_con.cursor()		# c is the DATABASE CURSOR
-
-check_for_previous_mails_query = "SELECT  *  FROM mails WHERE user_id=?"
-c.execute(check_for_previous_mails_query, (user_id,))
-
-if not c.row_count:
+if not result.first():
                 result, raw_list = mailbox.uid("search", None, "ALL")
                 id_list = raw_list[0].split()
                 for index in id_list:
@@ -43,34 +56,40 @@ if not c.row_count:
                         email_message = email.message_from_string(raw_email)
                         del(raw_email)
                         del(tmp)
-                        mail = []
+                        ############################################################################
+                        mail = {}
                         mail['to'] = email_message['To']
                         mail['from'] = email_message['From']
-                        mail['received'] = email_message['Date']
+                        mail['date'] = email_message['Date']
                         mail['subject'] = email_message['Subject']
-                        mail['cc'] = email_message['Cc']
-                        mail['bcc'] = email_message['Bcc']
-                        mail['message'] = get_first_text_block(email_message)
+                        mail['cc'] = str(email_message['Cc'])
+                        mail['bcc'] = str(email_message['Bcc'])
+                        mail['message'] = unicode(str(get_first_text_block(email_message)), errors='ignore')
+                        if(len(mail['message']) > 2000):
+                                mail['message'] = unicode('Message too long. IMAP.IITB.AC.IN denied to fetch.')
                         mail['uid'] = index
                         mail['user_id'] = user_id
                         mail['read'] = True
 
-                        if(email_message['Content-Type'].find("multipart") or email_message['Content-Type'].find("multipart") or email_message['Content-Type'].find("multipart")):
-                                mail['has_attachment'] = False
-                        else:
+                        if(str(email_message['Content-Type']).find("multipart") or str(email_message['Content-Type']).find("multipart") or str(email_message['Content-Type']).find("multipart")):
                                 mail['has_attachment'] = True
+                        else:
+                                mail['has_attachment'] = False
 
-                        #Inserting into mails
-                        mail_insert_query = 'INSERT INTO mails VALUES(%s)' % ','.join(['?'] * len(mail))
-                        c.execute(mail_insert_query, mail)
-                        db_con.commit()
+                        print(index)
+                        i = mails_table.insert()
+                        new_mail = i.values(mail)
+                        con = engine.connect()
+                        engine.execute(new_mail)
 
 else:
-        last_mail_id_query = 'SELECT * FROM `mails` ORDER BY id DESC LIMIT 1'
-        c.execute(last_mail_id_query)
+        s = select([mails_table])
+        result = s.execute()
 
-        for row in c:
-                last_id = int(row[1])
+        for row in result:
+                if not row:
+                        print('')
+        last_id = row[1]
 
         result, raw_list = mailbox.uid("search", None, "ALL")
         id_list = raw_list[0].split()
@@ -83,26 +102,28 @@ else:
                 email_message = email.message_from_string(raw_email)
                 del(raw_email)
                 del(tmp)
-                mail = []
+                ############################################################################
+                mail = {}
                 mail['to'] = email_message['To']
                 mail['from'] = email_message['From']
-                mail['received'] = email_message['Date']
+                mail['date'] = email_message['Date']
                 mail['subject'] = email_message['Subject']
-                mail['cc'] = email_message['Cc']
-                mail['bcc'] = email_message['Bcc']
-                mail['message'] = get_first_text_block(email_message)
+                mail['cc'] = str(email_message['Cc'])
+                mail['bcc'] = str(email_message['Bcc'])
+                mail['message'] = unicode(str(get_first_text_block(email_message)), errors='ignore')
+                if(len(mail['message']) > 2000):
+                        mail['message'] = unicode('Message too long. IMAP.IITB.AC.IN denied to fetch.')
                 mail['uid'] = index
-                mail['course'] = ''
                 mail['user_id'] = user_id
                 mail['read'] = True
 
-                if(email_message['Content-Type'].find("multipart") or email_message['Content-Type'].find("multipart") or email_message['Content-Type'].find("multipart")):
-                        mail['has_attachment'] = False
-                else:
+                if(str(email_message['Content-Type']).find("multipart") or str(email_message['Content-Type']).find("multipart") or str(email_message['Content-Type']).find("multipart")):
                         mail['has_attachment'] = True
+                else:
+                        mail['has_attachment'] = False
 
-                #Inserting into mails
-                mail_insert_query = 'INSERT INTO mails VALUES(%s)' % ','.join(['?'] * len(mail))
-                c.execute(mail_insert_query, mail)
-                con.commit()
-
+                print(index)
+                i = mails_table.insert()
+                new_mail = i.values(mail)
+                con = engine.connect()
+                engine.execute(new_mail)
