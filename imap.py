@@ -71,7 +71,7 @@ if not result.first():
                         mail['user_id'] = user_id
                         mail['read'] = True
 
-                        if(str(email_message['Content-Type']).find("multipart") or str(email_message['Content-Type']).find("multipart") or str(email_message['Content-Type']).find("multipart")):
+                        if(str(email_message['Content-Type']).find("multipart") != -1 or str(email_message['Content-Type']).find("Multipart") != -1 or str(email_message['Content-Type']).find("MULTIPART") != -1):
                                 mail['has_attachment'] = True
                         else:
                                 mail['has_attachment'] = False
@@ -117,7 +117,7 @@ else:
                 mail['user_id'] = user_id
                 mail['read'] = True
 
-                if(str(email_message['Content-Type']).find("multipart") or str(email_message['Content-Type']).find("multipart") or str(email_message['Content-Type']).find("multipart")):
+                if(str(email_message['Content-Type']).find("multipart") != -1 or str(email_message['Content-Type']).find("Multipart") != -1 or str(email_message['Content-Type']).find("MULTIPART") != -1):
                         mail['has_attachment'] = True
                 else:
                         mail['has_attachment'] = False
