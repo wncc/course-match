@@ -1,0 +1,33 @@
+<%= erb :header %>
+<div class="mails">
+	<strong style="font-family: 'League Gothic Regular', 'League Gothic', Helvetica, Arial, sans-serif !important; font-size: 50px;">Add Course</strong>
+	<br><br>
+	<form action="/add_course" method="POST">
+		<label for="course_tag">Course code</label>
+		<input type="text" name="tag" id="course_tag" required style="border: 1px solid black; width: 40px; display: inline-block">
+		&nbsp;-&nbsp;
+		<input type="text" name="number" id="course_number" style="border: 1px solid black; width: 40px; display: inline-block" required><br><br>
+		<input type="submit" value="Add" class="blue-button">
+	</form>
+	<br><br><br><br>
+	<hr>
+	<strong style="font-family: 'League Gothic Regular', 'League Gothic', Helvetica, Arial, sans-serif !important; font-size: 30px;">Added Courses</strong><br><br>
+	<ul>
+		<% @courses.each do |course| %>
+		<li>
+			<%= course.tag %>-<%= course.number %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="blue-button" onclick="del(<%= course.id %>)">Delete</button>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<script>active(2)</script>
+<script>
+	function del(id){
+		flag = confirm('Are you sure you want to delete the course?');
+		if(flag == true){
+			document.location = "/delete_course/"+id;
+		}
+	}
+</script>
+<%= erb :footer %>

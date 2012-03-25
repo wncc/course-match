@@ -1,6 +1,6 @@
 <%= erb :header %>
 <div class="table">
-				Syncing your emails. This takes full 10 minutes for the first time. <br>
+				Syncing emails for the course. Might take a minute.<br>
 			</div>
 			<script>
 				var xmlhttp;
@@ -17,7 +17,7 @@
 						}
 					}
 				}
-				xmlhttp.open("GET","/sync",true);
+				xmlhttp.open("GET","/partial_sort",true);
 				xmlhttp.send();
 			</script>
 <%= erb :footer %>

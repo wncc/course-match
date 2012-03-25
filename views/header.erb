@@ -3,17 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Course Match</title>
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="<%= base_url %>css/reset.css">
+	<link rel="stylesheet" href="<%= base_url %>css/style.css">
 </head>
 <body>
+	<script>
+		function active(number){
+			var e = document.getElementById('nav');
+			list = e.children;
+			target = list[number-1];
+			target.setAttribute("class","active");
+		}
+	</script>
 	<div class="sidebar">
-		<div class="uname">amol_mandhane</div>
+		<div class="uname"><%= @user.username %></div>
 		<div class="nav">
-			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Add Course</a></li>
-				<li class="active"><a href="#">CL-244</a></li>
+			<ul id="nav">
+				<li><a href="/sync_complete">Home</a></li>
+				<li><a href="/add_course">Add Course</a></li>
+				<% @courses.each do |course| %>
+				<li><a href="/mails/<%=course.id%>"><%= course.tag %>-<%= course.number %></a></li>
+				<% end %>
 			</ul>
 		</div>
 		<div class="footer">
@@ -21,4 +31,3 @@
 		</div>
 	</div>
 	<div class="main">
-		<div class="mails">
