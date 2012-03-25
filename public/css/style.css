@@ -51,6 +51,13 @@ body{
 	font-size: 1000%;
 	text-shadow: 3px 3px 0 #aaa;
 	cursor: pointer;
+	line-height: 10px;
+}
+.title span{
+	font-family: "League Gothic Regular", "League Gothic", Helvetica, Arial, sans-serif !important;
+	text-align: center;
+	text-shadow: 3px 3px 0 #aaa;
+	cursor: pointer;
 }
 
 .login{

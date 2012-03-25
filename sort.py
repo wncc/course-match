@@ -7,16 +7,15 @@ def rel(*x):
 
 db_con = sqlite3.connect(rel("db/course-match.db"))
 
-f = open(rel("tmp/holder"), "r")
+f = open(rel("tmp/index"), "r")
 raw = f.read()
 f.close()
 
-con = raw.split("$$$")
-user_id = con[4]
+user_id = raw
 
 c = db_con.cursor()
 
-get_courses_query = "SELECT * FROM courses WHERE user_id = " + str(con[4])
+get_courses_query = "SELECT * FROM courses WHERE user_id = " + str(user_id)
 
 c.execute(get_courses_query)
 
@@ -30,9 +29,9 @@ if c.fetchone():
                 strings = ["%" + row[1] + row[2] + "%", "%" + row[1] + " " + row[2] + "%", "%" + row[1] + "-" + row[2] + "%"]
                 search_strings.append(strings)
 
-        course_match_query = course_match_query = "SELECT * FROM mails WHERE user_id = " + con[4] + " AND ("
+        course_match_query = course_match_query = "SELECT * FROM mails WHERE user_id = " + user_id + " AND ("
         for strings in search_strings:
-                # course_match_query = "SELECT * FROM mails WHERE user_id = " + con[4] + " AND (subject LIKE IN " + strings + " OR message LIKE IN " + strings + ")"
+                # course_match_query = "SELECT * FROM mails WHERE user_id = " + user_id + " AND (subject LIKE IN " + strings + " OR message LIKE IN " + strings + ")"
                 course_match_query += "(subject LIKE '" + strings[0] + "' OR message LIKE '" + strings[0] + "') OR "
                 course_match_query += "(subject LIKE '" + strings[1] + "' OR message LIKE '" + strings[1] + "') OR "
                 course_match_query += "(subject LIKE '" + strings[2] + "' OR message LIKE '" + strings[2] + "'))"
@@ -54,4 +53,4 @@ if c.fetchone():
                                 c.execute(insert_relation_query)
                                 db_con.commit()
 
-# os.system("rm -f " + rel("tmp/holder"))
+os.system("rm -f " + rel("tmp/holder"))
