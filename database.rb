@@ -1,5 +1,5 @@
 DataMapper::setup(:default, "sqlite3://"+File.dirname(__FILE__) +"/db/course-match.db")
-	
+
 	class User
 		include DataMapper::Resource
 

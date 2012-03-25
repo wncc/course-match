@@ -115,7 +115,7 @@ else:
                         mail['message'] = unicode('Message too long. IMAP.IITB.AC.IN denied to fetch.')
                 mail['uid'] = index
                 mail['user_id'] = user_id
-                mail['read'] = 1
+                mail['read'] = 0
 
                 if(str(email_message['Content-Type']).find("multipart") != -1 or str(email_message['Content-Type']).find("Multipart") != -1 or str(email_message['Content-Type']).find("MULTIPART") != -1):
                         mail['has_attachment'] = 1

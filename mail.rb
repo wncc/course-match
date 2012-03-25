@@ -1,19 +1,38 @@
 require 'rubygems'
 require 'sinatra'
 require 'net/imap'
+require 'net/http'
 require 'data_mapper'
+require 'launchy'
 # require 'rack-flash'
 # require 'sinatra/redirect_with_flash'
+class Sinatra::Base
+  # Redefine the 'running' setting to support a threaded callback
+  def self.running=(isup)
+
+    return if !defined?(after_running)
+    return if !isup
+
+    Thread.new do
+      Thread.pass
+      after_running
+    end
+  end
+end
+
 set :bind, '127.0.0.1'
 set :port, 4444
+set :after_running, lambda {
+	puts Launchy.open('http://localhost:4444')
+}
 # helpers do
 # 	include Rack::Utils
 # 	include Sinatra::Helpers 
 # end
 
 # require File.dirname(__FILE__) + '/database.rb'
-DataMapper::setup(:default, "sqlite3://"+File.dirname(__FILE__) +"/db/course-match.db")
-	
+DataMapper::setup(:default, "sqlite3://" + Dir.pwd + "/db/course-match.db")
+
 	class User
 		include DataMapper::Resource
 
@@ -59,6 +78,7 @@ DataMapper::setup(:default, "sqlite3://"+File.dirname(__FILE__) +"/db/course-mat
 	end
 
 DataMapper.finalize.auto_upgrade!
+
 
 ##################################
 ##SESSION START
