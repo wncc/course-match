@@ -4,6 +4,7 @@ require 'net/imap'
 require 'net/http'
 require 'data_mapper'
 require 'launchy'
+require 'json'
 # require 'rack-flash'
 # require 'sinatra/redirect_with_flash'
 class Sinatra::Base
@@ -148,8 +149,16 @@ end
 
 get "/sync/?" do
 	command = Thread.new do
-		system(File.dirname(__FILE__)+"/imap")# long-long programm
-		system(File.dirname(__FILE__)+"/sort")# long-long programm
+		if File.exist?(Dir.pwd+"/imap")
+			system(Dir.pwd+"/imap")# long-long programm
+		else
+			system("python "+Dir.pwd+"/imap")
+		end
+		if File.exist?(Dir.pwd+"/sort")
+			system(Dir.pwd+"/sort")# long-long programm
+		else
+			system("python "+Dir.pwd+"/sort")
+		end
 	end
 	command.join
 
@@ -158,7 +167,11 @@ end
 
 get "/sort/?" do
 	command = Thread.new do
-		system(File.dirname(__FILE__)+"/sort")# long-long programm
+		if File.exist?(Dir.pwd+"/sort")
+			system(Dir.pwd+"/sort")# long-long programm
+		else
+			system("python "+Dir.pwd+"/sort")
+		end
 	end
 	command.join
 
@@ -167,7 +180,11 @@ end
 
 get "/partial_sort/?" do
 	command = Thread.new do
-		system(File.dirname(__FILE__)+"/partial_sort")# long-long programm
+		if File.exist?(Dir.pwd+"/partial_sort")
+			system(Dir.pwd+"/partial_sort")# long-long programm
+		else
+			system("python "+Dir.pwd+"/partial_sort")
+		end
 	end
 	command.join
 
