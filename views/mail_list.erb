@@ -2,7 +2,7 @@
 <div class="mails">
 <div class="table">
 				<% @mail.each do |mail| %>
-				<% if mail.read %>
+				<% if mail.read==1 %>
 				<div class="tr read" onclick="document.location='/view_mail/<%= mail.id %>'">
 				<% else %>
 				<div class="tr unread" onclick="document.location='/view_mail/<%= mail.id %>'">
@@ -11,7 +11,10 @@
 						<%= mail.from %>
 					</div>
 					<div class="td"><%= mail.subject %></div>
-					<div class="td"><%= mail.date %></div>
+					<div class="td">
+					<% d = DateTime.rfc2822(mail.date.split("(").first) %>
+					<%= d.strftime('%b %d, %I:%M %p') %>
+				</div>
 				</div>
 				<% end %>
 			</div>

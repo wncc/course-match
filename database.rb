@@ -30,8 +30,8 @@ DataMapper::setup(:default, "sqlite3://"+File.dirname(__FILE__) +"/db/course-mat
 		property :date, String
 		property :message, Text
 
-		property :read, Boolean, :default => true
-		property :has_attachment, Boolean, :default => false
+		property :read, Integer, :default => 1
+		property :has_attachment, Integer, :default => 0
 
 		belongs_to :user
 	end

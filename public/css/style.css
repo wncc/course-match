@@ -243,11 +243,19 @@ input[type=text],input[type=password]{
 
 .headers{
 	padding: 10px;
+	font-size: 14px;
 }
 
 .headers table tr td:first-child{
 	width:200px !important;
 	font-weight: bold !important;
+}
+.headers tr{
+	padding: 5px;
+	border-bottom: 1px dotted grey;
+}
+.headers td{
+	padding: 5px;
 }
 
 .headers .subject{

@@ -4,7 +4,8 @@ require 'net/imap'
 require 'data_mapper'
 # require 'rack-flash'
 # require 'sinatra/redirect_with_flash'
-
+set :bind, '127.0.0.1'
+set :port, 4444
 # helpers do
 # 	include Rack::Utils
 # 	include Sinatra::Helpers 
@@ -206,10 +207,12 @@ get '/view_mail/:id' do
 	end
 
 	@mail = Mail.get(params[:id])
+	@mail.read = true
+	@mail.save
 
 	erb :view_mail
 end
 
 def base_url
-	return 'http://localhost:9393/'
+	return 'http://localhost:4444/'
 end

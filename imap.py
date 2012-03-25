@@ -69,12 +69,12 @@ if not result.first():
                                 mail['message'] = unicode('Message too long. IMAP.IITB.AC.IN denied to fetch.')
                         mail['uid'] = index
                         mail['user_id'] = user_id
-                        mail['read'] = True
+                        mail['read'] = 1
 
                         if(str(email_message['Content-Type']).find("multipart") != -1 or str(email_message['Content-Type']).find("Multipart") != -1 or str(email_message['Content-Type']).find("MULTIPART") != -1):
-                                mail['has_attachment'] = True
+                                mail['has_attachment'] = 1
                         else:
-                                mail['has_attachment'] = False
+                                mail['has_attachment'] = 0
 
                         print(index)
                         i = mails_table.insert()
@@ -115,12 +115,12 @@ else:
                         mail['message'] = unicode('Message too long. IMAP.IITB.AC.IN denied to fetch.')
                 mail['uid'] = index
                 mail['user_id'] = user_id
-                mail['read'] = False
+                mail['read'] = 1
 
                 if(str(email_message['Content-Type']).find("multipart") != -1 or str(email_message['Content-Type']).find("Multipart") != -1 or str(email_message['Content-Type']).find("MULTIPART") != -1):
-                        mail['has_attachment'] = True
+                        mail['has_attachment'] = 1
                 else:
-                        mail['has_attachment'] = False
+                        mail['has_attachment'] = 0
 
                 print(index)
                 i = mails_table.insert()
