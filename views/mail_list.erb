@@ -16,4 +16,6 @@
 				<% end %>
 			</div>
 		</div>
+		<% num = @courses.index(@course) %>
+		<script>active(<%= num+3 %>)</script>
 <%= erb :footer %>

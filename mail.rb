@@ -205,7 +205,7 @@ get '/view_mail/:id' do
 		@courses = [@courses]
 	end
 
-	@mail = Mail.find(params[:id])
+	@mail = Mail.get(params[:id])
 
 	erb :view_mail
 end

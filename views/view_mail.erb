@@ -1,5 +1,35 @@
 <%= erb :header %>
 <div class="mails">
-
+		<div class="headers">
+			<table>
+				<tr>
+					<td>To: </td>
+					<td><%=  @mail.to %></td>
+				</tr>
+				<tr>
+					<td>From: </td>
+					<td><%= @mail.from %></td>
+				</tr>
+				<tr>
+					<td>Cc: </td>
+					<td><%= @mail.cc %></td>
+				</tr>
+				<tr>
+					<td>Bcc: </td>
+					<td><%= @mail.bcc %></td>
+				</tr>
+				<tr>
+					<td>Received:</td>
+					<td><%= @mail.date %></td>
+				</tr>
+			</table>
+			<br><br>
+			<div class="subject">
+				<%= @mail.subject %>
+			</div>
+		</div>
+		<div class="message">
+			<%= @mail.message.gsub!(/\n/, '<br />') %>
+		</div>
 		</div>
 <%= erb :footer %>
